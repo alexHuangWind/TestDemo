@@ -1,0 +1,5 @@
+<resources>
+    <string name="setting_fragment">Setting Fragment</string>
+    <string name="rate_our_app">Rate our APP</string>
+    <string name="terms_and_conditions">Terms And Conditions</string>
+</resources>

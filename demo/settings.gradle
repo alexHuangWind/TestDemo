@@ -1,0 +1,9 @@
+rootProject.name = "demo"
+include ':app'
+include ':features'
+include ':libraries'
+include ':testing'
+include ':libraries:core'
+include ':features:setting'
+include ':features:home'
+include ':features:account'
