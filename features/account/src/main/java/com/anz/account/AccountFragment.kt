@@ -27,7 +27,7 @@ class AccountFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.accountBalence.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is AccountState.Success -> binding.balanceText.text = state.data
+                is AccountState.Success -> binding.balanceText.text = "  ${state.data}$"
                 is AccountState.GenericError -> {
                     //TODO Show error message
                 }

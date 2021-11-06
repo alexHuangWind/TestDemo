@@ -28,7 +28,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.accountName.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is HomeState.Success -> binding.nameText.text = state.name
+                is HomeState.Success -> binding.nameText.text = "  ${state.name}$"
                 is HomeState.GenericError -> {
                     //TODO Show error message
                 }

@@ -33,7 +33,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             val result = accountProvider.getAccountName()
             if (result.isNotEmpty()) {
-                name.postValue(HomeState.Success("  $result$"))
+                name.postValue(HomeState.Success(result))
             } else {
                 name.postValue(HomeState.GenericError)
             }

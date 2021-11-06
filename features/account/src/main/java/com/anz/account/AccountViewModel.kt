@@ -46,7 +46,7 @@ class AccountViewModel @Inject constructor(private val accountRepository: Accoun
         viewModelScope.launch {
             val result = accountRepository.getAccountName()
             if (result.isNotEmpty()) {
-                name.postValue(AccountState.Success("  $result$"))
+                name.postValue(AccountState.Success(result))
             } else {
                 name.postValue(AccountState.GenericError)
             }

@@ -13,8 +13,8 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.kotlin.atLeastOnce
 import org.mockito.kotlin.mock
-import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 
 
@@ -31,8 +31,8 @@ class HomeViewModelTest {
     @Test
     fun `empty name produces Error`() {
         // ARRANGE
-        val mockAccountProvider = mockk<AccountProvider>(){
-            coEvery { getAccountName() } coAnswers { ""}
+        val mockAccountProvider = mockk<AccountProvider>{
+            coEvery { getAccountName() } coAnswers {""}
         }
         val mockSettingProvider = mockk<SettingProvider>()
         val viewModel = HomeViewModel(
@@ -50,11 +50,13 @@ class HomeViewModelTest {
         }
     }
 
-
-    fun `name not empty should success and callback as expected`() {
+    @Test
+    fun `when get success should callback as expected`() {
         // ARRANGE
         val expected = "alex"
-        val mockAccountProvider = mockk<AccountProvider>()
+        val mockAccountProvider = mockk<AccountProvider>{
+            coEvery { getAccountName() } coAnswers { expected}
+        }
         val mockSettingProvider = mockk<SettingProvider>()
         val observerSlot = slot<HomeState>()
         val mockObserver = mockk<Observer<HomeState>> {
@@ -77,13 +79,18 @@ class HomeViewModelTest {
     fun `when homeViewModel call showTermsAndConditions mockSettingProvider should call showTermsAndConditions`() =
         runBlockingTest {
             // ARRANGE
-            val mockAccountProvider = mockk<AccountProvider>()
-            val mockSettingProvider = mockk<SettingProvider>()
+            val mockAccountProvider:AccountProvider = mock()
+            val mockSettingProvider:SettingProvider = mock()
+            val viewModel = HomeViewModel(
+                mockAccountProvider,
+                mockSettingProvider
+            )
+
             // ACT
-            homeViewModel.showTermsAndConditions()
+            viewModel.showTermsAndConditions()
 
             // ASSERT
-            verify(builder.mockSettingProvider, times(1)).showTermsAndConditions()
+            verify(mockSettingProvider, atLeastOnce()).showTermsAndConditions()
         }
 
 
